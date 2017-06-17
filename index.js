@@ -1,17 +1,34 @@
 'user strict';
-const electron      = require('electron');
-const app           = electron.app;
 
-let mainWindow = null;
+const {app}           = require('electron');
+const {crashReporter} = require('electron');
+const {BrowserWindow} = require('electron');
 
-app.on('window-all-closed', function() {
+crashReporter.start({
+  productName: 'electron_test',
+  companyName: 'tkb3',
+  submitURL: 'no',
+  uploadToServer: false
+});
+
+
+app.on('window-all-closed', () => {
     app.quit();
 });
 
-app.on('ready', function() {
-  mainWindow = new electron.BrowserWindow({width: 1000, height: 850});
+let mainWindow = null;
+app.on('ready', () => {
+  mainWindow = new BrowserWindow({
+    titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
+    width: 1000,
+    height: 850,
+    'icon': __dirname + '/messenger.ico'
+  });
   mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.on('closed', function() {
+  mainWindow.openDevTools(true);
+
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
 });

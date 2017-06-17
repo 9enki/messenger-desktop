@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -o",
     "start": "electron",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +20,9 @@
   "homepage": "https://github.com/ikneg/electron_test#readme",
   "devDependencies": {
     "http-server": "^0.10.0"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }
