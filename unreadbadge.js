@@ -15,7 +15,16 @@ const webview  = document.getElementById('mainWebview');
 let title = '';
 let unreadCount = '';
 let previousUnreadCount = '';
+const os = (() => {
+  if((process.platform).match(/win/)) {
+    return 'win';
+  }
+  else {
+    return 'mac';
+  }
+})();
 
+console.log(os);
 setInterval(() => {
   title = webview.getTitle();
   if(title.match(/Messenger/)) {
@@ -29,35 +38,40 @@ setInterval(() => {
     }
 
     if (unreadCount != previousUnreadCount) {
-      if (0 < Number(unreadCount)) {
-        let ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'red';
-        ctx.beginPath();
-        ctx.ellipse(70, 70, 70, 70, 0, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'white';
-        if (unreadCount.length > 2) {
-          ctx.font = '75px sans-serif';
-          ctx.fillText('' + unreadCount, 70, 98);
-        }
-        else if (unreadCount.length > 1) {
-          ctx.font = '100px sans-serif';
-          ctx.fillText('' + unreadCount, 70, 105);
+      if (os == 'win') {
+        if (0 < Number(unreadCount)) {
+          let ctx = canvas.getContext('2d');
+          ctx.fillStyle = 'red';
+          ctx.beginPath();
+          ctx.ellipse(70, 70, 70, 70, 0, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'white';
+          if (unreadCount.length > 2) {
+            ctx.font = '75px sans-serif';
+            ctx.fillText('' + unreadCount, 70, 98);
+          }
+          else if (unreadCount.length > 1) {
+            ctx.font = '100px sans-serif';
+            ctx.fillText('' + unreadCount, 70, 105);
+          }
+          else {
+            ctx.font = '125px sans-serif';
+            ctx.fillText('' + unreadCount, 70, 112);
+          }
+          const badgeDataURL = canvas.toDataURL();
+          const buffer = canvasBuffer(canvas, 'image/png');
+          fs.writeFileSync(__dirname+'/test.png', buffer);
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.setOverlayIcon(__dirname+'/test.png', "count");
         }
         else {
-          ctx.font = '125px sans-serif';
-          ctx.fillText('' + unreadCount, 70, 112);
+          const mainWindow = remote.getCurrentWindow();
+          mainWindow.setOverlayIcon(null, "count");
         }
-        const badgeDataURL = canvas.toDataURL();
-        const buffer = canvasBuffer(canvas, 'image/png');
-        fs.writeFileSync(__dirname+'/test.png', buffer);
-        const mainWindow = remote.getCurrentWindow();
-        mainWindow.setOverlayIcon(__dirname+'/test.png', "count");
       }
       else {
-        const mainWindow = remote.getCurrentWindow();
-        mainWindow.setOverlayIcon(null, "count");
+        setBadgeCount(unreadCount);
       }
     }
   }
