@@ -26,7 +26,6 @@ app.on('ready', () => {
     'icon': __dirname + '/messenger.ico'
   });
   mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.openDevTools(true);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

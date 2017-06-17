@@ -62,3 +62,7 @@ setInterval(() => {
     }
   }
 }, 3000);
+
+webview.addEventListener('new-window', (e) => {
+  require('electron').shell.openExternal(e.url);
+});
