@@ -1,5 +1,5 @@
 {
-  "name": "electron_test",
+  "name": "messenger-desktop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,19 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ikneg/electron_test.git"
+    "url": "git+https://github.com/ikneg/messenger-desktop.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ikneg/electron_test/issues"
+    "url": "https://github.com/ikneg/messenger-desktop/issues"
   },
-  "homepage": "https://github.com/ikneg/electron_test#readme",
+  "homepage": "https://github.com/ikneg/messenger-desktop#readme",
   "devDependencies": {
     "http-server": "^0.10.0"
   },
   "dependencies": {
+    "electron-canvas-to-buffer": "^2.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   }

@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const {app}           = require('electron');
 const {crashReporter} = require('electron');

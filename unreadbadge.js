@@ -24,7 +24,6 @@ const os = (() => {
   }
 })();
 
-console.log(os);
 setInterval(() => {
   title = webview.getTitle();
   if(title.match(/Messenger/)) {
